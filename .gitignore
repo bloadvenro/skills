@@ -1,7 +1,14 @@
-# Track the m2h skill and repository guidance; exclude Codex runtime and private data.
+# Track skills and repository guidance; exclude Codex runtime and generated caches.
 /*
 !/.gitignore
 !/AGENTS.md
 !/skills/
-/skills/*
-!/skills/m2h/
+/skills/.system/
+/skills/hatch-pet/
+/skills/export-context/
+/skills/jira-task/
+/skills/map-system-interface/
+/skills/obsidian/
+/skills/review/
+/skills/worktree-workflow/
+**/__pycache__/
