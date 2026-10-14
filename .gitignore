@@ -1,0 +1,7 @@
+# Track the m2h skill and repository guidance; exclude Codex runtime and private data.
+/*
+!/.gitignore
+!/AGENTS.md
+!/skills/
+/skills/*
+!/skills/m2h/

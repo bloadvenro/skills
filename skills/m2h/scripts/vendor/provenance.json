@@ -1,0 +1,23 @@
+[
+  {
+    "name": "mermaid",
+    "version": "12.1.0",
+    "archive": "https://registry.npmjs.org/mermaid/-/mermaid-12.1.0.tgz",
+    "archive_sha256": "3e516f33246e1a6a5bc5ebcabd35434669b487c3b3791f9b0466aa2c254d004a",
+    "distribution": "package/dist/mermaid.min.js"
+  },
+  {
+    "name": "markdown-it",
+    "version": "15.0.2",
+    "archive": "https://registry.npmjs.org/markdown-it/-/markdown-it-15.0.2.tgz",
+    "archive_sha256": "3237f5ecac432f99453e6d8d345b6e4764a22f1781c96e02dc9e89777b9c23c1",
+    "distribution": "package/dist/browser/markdown-it.umd.min.js"
+  },
+  {
+    "name": "markdown-it-container",
+    "version": "4.0.0",
+    "archive": "https://registry.npmjs.org/markdown-it-container/-/markdown-it-container-4.0.0.tgz",
+    "archive_sha256": "d5bd78dd73d50aeedc5855bd33311a20716cf6a215d7bb7d862c337d011e58d0",
+    "distribution": "package/dist/markdown-it-container.min.js"
+  }
+]
