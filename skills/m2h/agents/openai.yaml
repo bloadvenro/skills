@@ -1,6 +1,6 @@
 interface:
   display_name: "Machine to Human"
-  short_description: "Style final replies; HTML only on explicit request"
-  default_prompt: "Use $m2h to present the final answer in my voice in chat; create an HTML document only if I explicitly request one."
+  short_description: "Adapt analysis and communication to the conversation"
+  default_prompt: "Use $m2h to adapt your professional approach and communication to our discussion, keep progress updates brief, and create HTML only if I explicitly request it."
 policy:
   allow_implicit_invocation: true

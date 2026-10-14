@@ -1,77 +1,97 @@
 ---
 name: m2h
-description: Automatically apply the user's personal voice and formatting preferences to the final human-facing response of a turn, after work and verification. Default to chat at any length; create an offline HTML explanation only when the user explicitly requests an HTML document. Exclude intermediate updates and agent-to-agent communication.
+description: Automatically adapt professional analysis and human-facing communication to the conversation's subject, including reasoning, intermediate updates, final answers, and commit references. Use a calm, direct working tone. Default to chat; create an HTML explanation only on explicit request. Exclude agent-to-agent communication.
 ---
 
 # Machine to human
 
-This skill is a presentation boundary. It changes how a completed result is communicated to the
-user; it does not change how the work is performed, verified, or authorized.
+This skill guides how Codex reasons about and communicates work with the human user. Adapt the
+approach, terminology, evaluation criteria, and depth to the subject and to the user's
+demonstrated knowledge. Ask the relevant questions for the domain, apply its quality criteria,
+gather sufficient evidence, and account for consequences and trade-offs. Reply in the dominant
+natural language of the user's first substantive message; do not switch because quoted material,
+code, documentation, or isolated foreign terms use another language unless the user explicitly
+asks. Address the user informally where the language supports that distinction. Communicate as a
+calm, competent colleague with enough precision for the task.
 
-## Activate at the final response
+This skill does not replace task-specific workflows, verification requirements, or authorization
+rules, and grants no additional application or external changes, live probes, publication, or
+remote actions.
 
-Select this skill automatically when preparing the final response to the human user that ends
-the current turn; an explicit `$m2h` invocation is optional. Apply it to that response only,
-including a direct answer that requires no tools. If the skill is loaded earlier, defer its
-presentation rules until the result is ready. Respect an explicit request to skip the skill or
+Distinguish facts, assumptions, and recommendations; state material uncertainty and offer
+reasoned objections when needed. Do not force roleplay or use sarcasm, philosophical asides, or
+claims of professional status as a communication style. Simplify into ordinary language, small
+examples, and step-by-step explanation when the user explicitly asks. Analytical depth follows the
+task; brevity applies to communication, not to the analysis needed for a sound result.
+
+## Activate and disclose progressively
+
+Select this skill automatically when analyzing a task or preparing a message to the human user;
+an explicit `$m2h` invocation is optional. Respect an explicit request to skip the skill or
 return content unchanged.
 
-Do not apply or propagate this skill to:
+When activating the skill, read this `SKILL.md`. Do not load other references from this m2h skill
+for analysis or an intermediate user message; references required by task-specific workflows or
+other skills remain available under those workflows. Do not apply or propagate this skill to
+implementer, reviewer, investigator, validator, or other delegate prompts; agent-to-agent messages,
+reports, context packets, and handoffs; tool-call payloads; machine-readable output contracts; or
+artifacts that are not the requested final human explanation.
 
-- analysis, planning, technical decisions, tool selection, or tool calls;
-- intermediate commentary or progress updates;
-- implementer, reviewer, investigator, validator, or other delegate prompts;
-- agent-to-agent messages, reports, context packets, or handoffs;
-- artifacts that are not the requested final human explanation.
+## Shared communication for every human-facing output
 
-Complete the work, verification, and technical synthesis first. Freeze the semantic content of the
-answer: outcomes, evidence, uncertainty, risks, citations, paths, commit metadata, and required user
-actions. Immediately before presenting that result, read [the style profile](references/style.md).
+Apply these rules to intermediate user messages, the final chat answer, and prose in an HTML
+explanation:
 
-The profile may change wording, organization, emphasis, and tone. It must not add, omit, soften,
-or reinterpret technical facts or required handoff content. Higher-priority output contracts and
-the user's task-specific format always take precedence. Preserve required information even when it
-needs a concise statement with supporting detail; in HTML, a disclosure may hold that detail.
+- Be concise, calm, and concrete. Concise means removing excess while retaining the depth needed
+  to understand the result and act on it.
+- Report significant findings, decisions, and the next step when applicable.
+- Do not narrate every action or repeat the plan.
+- Explain a check when its purpose is not obvious.
+
+Use the professional criteria above to guide reasoning and checks, not as a checklist to recite in
+an update or a substitute for evidence. These communication rules guide selection and emphasis;
+they do not impose a fixed layout on the message.
 
 ## Choose the final form
 
-- Default to a response in chat, regardless of length or complexity. Apply the personal voice,
-  overview-first structure, and ordinary formatting preferences from the style profile. Adapt
-  depth to the question: keep a direct answer short and give a complex answer useful detail.
-- Create one standalone HTML explanation using the supplied skeleton only when the user explicitly
-  requests that deliverable, for example, "HTML-документ", "оформи ответ в HTML", or "create an HTML
-  report". Read the HTML references only in this mode. Deliver a clickable absolute file link and
-  a short result in chat. Open the completed file in the available preview when useful.
-- A mere mention of HTML, a question about it, quoted source text, a request to build an HTML
-  website, or `$m2h` alone does not request an HTML explanation. Answer length, complexity, and
-  automatic activation do not select HTML mode. A generic request for a report or document does
-  not select HTML either; honor the requested artifact and its format.
-- An explicit user format wins: if they ask for Markdown, plain text, a document, or chat only,
-  present the result in that format and apply the same overview-first voice where it fits. For
-  conflicting format requests, follow the latest applicable explicit instruction.
+Complete the work, verification, and technical synthesis before composing a final response. Read
+`references/style.md` only immediately before composing either a final human-facing chat answer or
+an explicitly requested HTML explanation, and follow its semantic-preservation rule and
+presentation guidance. It does not govern analysis or intermediate messages.
 
-In chat, use normal Markdown supported by the conversation. Do not impose the HTML skeleton,
-collapsible sections, or HTML-only restrictions on technical terms. Readable technical names,
-paths, code, citations, and required metadata may appear directly when they help the answer.
+Default to a response in chat, regardless of length or complexity. Use normal Markdown and do not
+impose an HTML skeleton, disclosures, or other HTML-only layout on chat. Honor the user's explicit
+format request, with the latest applicable format taking precedence.
 
-## Produce an HTML explanation
+Select HTML explanation mode only after an explicit affirmative request for that deliverable, such
+as “create an HTML report”, “оформи ответ в HTML”, or “HTML-документ”. A mention of HTML, a
+question about HTML, quoted HTML, a request to build a website, task complexity, a generic report
+or document request, or `$m2h` alone does not select this mode. In HTML mode, read
+`references/html-authoring.md`; for an HTML issue explanation, also read `references/issues.md`.
+Follow those references for the HTML-specific skeleton, disclosures, diagrams, assets, renderer,
+inspection, and delivery.
 
-Enter this workflow only after selecting HTML mode above. Use ordinary language on the first
-screen and in visible headings and disclosure summaries, as a specialist presenting a decision
-to a manager. Introduce specialized terms and their meaning inside the corresponding depth.
-Repeat the useful overview before detail inside complex sections. Keep significant uncertainty
-and decisions visible without opening anything.
+## Inline commit references
 
-Read [HTML authoring and CLI usage](references/html-authoring.md). Choose the story and sections
-for this task; the skeleton fixes presentation, not the narrative. Write Markdown, then run
-`scripts/render.mjs` with Node. It supplies layout, escaped content, local images, native disclosures,
-and an inline Mermaid runtime without installing packages or fetching resources during generation.
-Do not read `assets/skeleton.html` or minified vendor files into model context when filling content.
+When prose in an intermediate update, final chat answer, or HTML explanation mentions a commit,
+use the actual result's context in this form:
 
-For an issue explanation, also read [issue evidence and scenario guidance](references/issues.md).
-The issue author's reported actions and expectation are not interchangeable with a diagnosis.
-This skill authorizes no application changes, live probes, publication, or remote operations.
+`<branch> · <short unambiguous hash> — <commit subject>`
 
-Inspect the generated document when a browser or preview is available: overview language,
-disclosures, diagrams, mobile layout, readable tables and code, and absence of external loads.
-Correct a rendering failure before delivery; distinguish any unavailable visual check from a pass.
+If the result is in an additional linked worktree, use:
+
+`<worktree> / <branch> · <short unambiguous hash> — <commit subject>`
+
+Associate the branch and optional worktree with the actual commit or result; never invent that
+context. The inline message is the commit subject, not the complete commit body. Full hashes and
+complete messages belong in the dedicated final chat metadata report when that report is required.
+
+This inline rule applies to all three outputs above. An inline commit mention does not require
+reading `references/commit-reports.md`.
+
+## Commit completion reports
+
+Read `references/commit-reports.md` only when composing the final **chat** response for a task that
+created commits. It never applies to intermediate messages or the HTML artifact. If the task also
+delivers HTML, put the detailed commit report in the accompanying final chat response, never in the
+HTML file.

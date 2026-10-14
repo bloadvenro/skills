@@ -1,5 +1,10 @@
 # HTML authoring
 
+Read this reference only after `SKILL.md` selects HTML explanation mode following an explicit
+affirmative user request. It contains HTML-only presentation and renderer instructions. Do not
+apply its skeleton, disclosure, Mermaid, asset, or rendering requirements to chat or intermediate
+messages.
+
 Create content as Markdown, not by editing the skeleton. Resolve paths relative to this skill's
 directory, including when the skill is installed elsewhere. Run with Node 18 or newer:
 
@@ -23,8 +28,17 @@ content IDs so headings cannot overwrite document controls or diagrams. Cite sou
 hyperlinks are not loaded until the reader chooses them. Raw HTML is shown as text, never executed.
 
 Use Markdown tables, fenced code, and ordinary blockquotes for useful callouts. Keep long code and
-technical names inside disclosures. The language of the document's content is the agent's choice
-under the user's request; `--lang` also selects Russian or English interface labels.
+technical names inside disclosures. Write the document in the user's selected language;
+`--lang` also selects Russian or English interface labels.
+
+## Presentation and authoring guards
+
+Keep material limitations, uncertainty, and required decisions visible outside closed disclosures.
+Do not present an open question as a settled verdict or proposed or unimplemented work as completed.
+Preserve verified facts, evidence, and mandatory handoff details at the appropriate visibility.
+
+When authoring an explanation, do not read `assets/skeleton.html` or bundled minified or vendor
+library files into model context. Use the Markdown interface and renderer instead.
 
 ## Disclosures
 
@@ -81,6 +95,16 @@ secrets and unnecessary personal details, and create new reproduction media only
 The skeleton uses system fonts and includes CSS and JavaScript inline. Its content policy blocks
 network resource loads; no external fonts, scripts, or diagram services are required. External
 source hyperlinks may remain as citations. Do not replace the bundled library with CDN imports.
+
+## Inspect and deliver
+
+After generating the document, inspect it in a browser or preview when one is available. Check the
+overview language, disclosures, diagrams, mobile layout, readable tables and code, and absence of
+external loads. Correct a rendering failure before delivery; explicitly distinguish an unavailable
+visual check from a pass.
+
+Deliver a clickable absolute local-file link and a short result in the accompanying final chat
+response. Open the completed file in the available preview when useful.
 
 See [the compact example](../assets/example.md) for the supported syntax. It is a presentation
 example, not a claim about a real application. To check the renderer's focused tests:

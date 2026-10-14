@@ -26,16 +26,6 @@
 - Create the worktree before the first change when isolation from parallel work or existing uncommitted changes is needed. Analysis and other read-only work do not require a worktree.
 - Before making changes, verify the actual branch and root of the current working copy; do not infer them solely from the task or project name.
 
-### Commit completion reports
-
-- Whenever a response mentions a commit hash, immediately follow the hash with its subject in the form `<hash> — <commit subject>`. If the commit body is materially relevant, include it separately as well.
-- For each final commit created as part of the task, report the exact branch name containing the result, the full commit hash, and the complete commit message, including its body.
-- Report the actual absolute path of the working copy containing the final result and its type: main working copy or additional linked worktree.
-- Include the current report date and time with its time zone, read from the system clock. Do not substitute the commit timestamp.
-- Recheck the branch, path, and hashes immediately before reporting. After a rebase, amend, or squash, report the final hashes and briefly note that earlier commits were rewritten.
-- Put metadata in a compact two-column Markdown table (field/value): combine branch and hash, and combine working-copy path and type.
-- A single-line commit message may appear in the table. Put a multiline message in full in a separate text block immediately below the table, preserving line breaks and blank lines.
-
 ## Skill-specific preferences
 
 ### Narrow tracing skills
