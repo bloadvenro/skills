@@ -5,6 +5,11 @@ affirmative user request. It contains HTML-only presentation and renderer instru
 apply its skeleton, disclosure, Mermaid, asset, or rendering requirements to chat or intermediate
 messages.
 
+The shared composition contract in [SKILL.md](../SKILL.md) also applies here. HTML supplies the
+necessary document container; it does not replace a specialized human-facing output format.
+Preserve required tables, fenced ASCII diagrams, and each deliverable in a mixed task without
+adding overview prose, sections, citations, or new diagrams solely for this profile.
+
 Create content as Markdown, not by editing the skeleton. Resolve paths relative to this skill's
 directory, including when the skill is installed elsewhere. Run with Node 18 or newer:
 
@@ -19,7 +24,8 @@ arguments fail with a message and a nonzero exit code. Output replaces an existi
 requested path, so choose a path intended for this answer. Input/output symlink and hardlink aliases
 of the same file are rejected. The renderer also works when the installed skill directory is a symlink.
 
-Start with exactly one top-level H1 title, then the overview. Top-level H2 headings define the
+Start with exactly one top-level H1 title as the document container. Add an overview and top-level
+H2 sections only where the output contract permits and they help the reader. H2 headings define
 major sections and automatic sidebar contents. Other headings are allowed deeper in the story.
 Repeated headings receive distinct anchors. For an internal Markdown link, use the ordinary
 lowercase heading slug, for example `## Evidence` with `[evidence](#evidence)`; spaces and
@@ -28,7 +34,8 @@ content IDs so headings cannot overwrite document controls or diagrams. Cite sou
 hyperlinks are not loaded until the reader chooses them. Raw HTML is shown as text, never executed.
 
 Use Markdown tables, fenced code, and ordinary blockquotes for useful callouts. Keep long code and
-technical names inside disclosures. Write the document in the user's selected language;
+optional technical detail inside disclosures; keep required identifiers and material caveats
+visible. Write the document in the user's selected language;
 `--lang` also selects Russian or English interface labels.
 
 ## Presentation and authoring guards
@@ -75,8 +82,10 @@ Choose section names and nesting for the subject rather than copying a rigid rep
 
 ## Diagrams and images
 
-Use fenced `mermaid` blocks where a diagram clarifies a relationship. Always explain its meaning
-in adjacent prose. The full pinned Mermaid runtime is embedded in every output. With JavaScript, each
+Use fenced `mermaid` blocks only when an additional diagram clarifies a relationship and is
+compatible with the output contract. Preserve required tables and ASCII diagrams; HTML mode alone
+does not call for a Mermaid conversion. Explain a new diagram in adjacent prose where the format
+permits. The full pinned Mermaid runtime is embedded in every output. With JavaScript, each
 diagram has a compact control in its upper-right corner that switches the figure between the rendered
 diagram and its escaped source; only one view is shown at a time. Diagrams inside disclosures render
 when the containing disclosures open. An invalid diagram shows a local error, and its source remains

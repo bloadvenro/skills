@@ -1,6 +1,6 @@
 ---
 name: trace-dataflow
-description: Trace one concrete user interaction, API request, command, or event through multiple implemented system boundaries to its terminal effects and render a compact ASCII data/event flowchart. Use only when the user's primary request is to follow that route end to end across UI, API, services, persistence, queues, jobs, or external systems. Do not use for ordinary implementation or local edits, narrow endpoint questions answerable without an end-to-end trace, status summaries, meta-discussion about this skill, or a mere quoted or annotated mention of its name. When the main question is how one value changes, use trace-data instead.
+description: Trace one concrete user interaction, API request, command, or event across implemented system boundaries to its terminal effects and render a compact ASCII flowchart. Use when following that route end to end is a user-requested meaningful deliverable, standalone or within a larger task. Do not activate solely for internal implementation tracing, another skill's research, narrow endpoint questions, status summaries, meta-discussion, quoted mentions, or agent-chosen cosmetic diagrams. For one value's transformations, use trace-data.
 ---
 
 # Trace Dataflow
@@ -9,15 +9,23 @@ Trace the main system-wide route of an interaction without turning the result in
 
 ## Applicability Gate
 
-Use this skill only when the user's primary requested deliverable is the interaction or request trace described above, grounded in an existing codebase. Do not use it merely because the skill name appears in quoted text, an annotation, prior assistant output, or a meta-discussion about skills. A request to review or change this skill's rules is not a request to perform the trace. Do not use this skill for ordinary implementation, local edits, status reporting, or a narrow question that can be answered without following the subject across meaningful system boundaries.
+Use this skill when the interaction or request trace described above, grounded in an existing
+codebase, is one of the user's requested meaningful deliverables. It may stand alone or accompany
+implementation, review, or another task. A natural-language request to explain an interaction's
+route end to end is sufficient; the user need not name the skill.
+
+Do not activate it solely for internal code tracing during ordinary implementation or local edits,
+another skill's research step, or a cosmetic diagram chosen by the agent. Status reporting and
+narrow questions answerable without crossing meaningful system boundaries do not qualify.
+Neither a quoted, annotated, or prior assistant mention nor a meta-discussion or request to edit
+this skill's rules is a request to perform the trace.
 
 ## Resolve the Trace
 
 1. Identify the interaction or request, entry point, relevant scenario, and terminal boundary from the prompt, conversation, current file, and repository.
-2. Start with one line in this form: `Interpreted trace: <interaction> from <entry> through <scope> to <terminal effects>.`
-3. Proceed without confirmation when the interpretation is well supported.
-4. If a missing detail would materially change the route and cannot be inferred confidently, ask exactly one focused clarification and wait. Do not produce a speculative trace first.
-5. If the source needed to ground the trace is unavailable, say so and ask one focused question requesting the missing repository, file, or artifact.
+2. Proceed without confirmation when the interpretation is well supported.
+3. If a missing detail would materially change the route and cannot be inferred confidently, ask one focused clarification and wait before the dependent trace work. Do not produce a speculative trace first.
+4. If necessary source is unavailable, state the limitation and ask one focused question for the missing repository, file, or artifact when needed to continue. Do not invent the trace; independent parts of a mixed task may continue.
 
 ## Inspect the System
 
@@ -29,14 +37,26 @@ Use this skill only when the user's primary requested deliverable is the interac
 
 ## Render the Result
 
-- Return only the interpretation line and the ASCII flowchart by default. Do not append a prose walkthrough, evidence list, or source citations unless the user explicitly requests them.
+- These defaults govern the final trace deliverable, not progress messages. In standalone chat,
+  return only the interpretation line and the ASCII flowchart. In a mixed task, apply this contract
+  within the trace section and preserve other requested results, implementation, checks, commits,
+  and handoff information outside it.
+- Begin the final trace with: `Interpreted trace: <interaction> from <entry> through <scope> to <terminal effects>.`
+- The user's explicit format supersedes these defaults. An explicitly requested HTML document may
+  add its necessary container while preserving the fenced ASCII flowchart inside it.
+- Do not add a prose walkthrough, evidence list, or citations solely for presentation. Keep
+  material caveats, missing coverage, and uncertainty visible in the interpretation or relevant
+  chart nodes rather than omitting them to fit the format.
 - Output one compact ASCII flowchart in a fenced code block. Do not use Mermaid.
+- The interpretation prefix and human-readable labels may follow the user's language. Preserve
+  technical names, values, and the markers `(inferred)`, `example`, and `redacted` unchanged.
 - Prefer one vertical spine with clear arrows. Group sibling effects instead of expanding every branch.
 - Aim for 5–9 nodes; exceed this only when collapsing another system boundary would be misleading.
 - Give each node a short stage or component name plus one concise purpose line. Add a small representative event or value only when it improves understanding.
 - Use readable component or module names, but omit file paths, line numbers, and symbol inventories by default. Include a code location only when necessary to disambiguate similarly named components.
 - Mark any unverified step inline as `(inferred)`. Do not present inference as code-confirmed behavior.
-- Omit routine error paths and minor conditionals. Group exceptional behavior only when it materially changes the final destination.
+- Omit routine error paths and minor conditionals. Keep exceptional behavior when it materially
+  changes persisted state, the final destination, or other terminal effects; group it compactly.
 - End at every meaningful terminal effect: response or consumer, persisted state, queued work, emitted event, dropped data, or external system.
 
 Use this shape as a guide, adapting it to the system rather than forcing every node:

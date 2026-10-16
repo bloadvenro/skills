@@ -1,34 +1,38 @@
-## Git workflow
+## Порядок работы с Git
 
-### Remote access and publication
+### Удалённый доступ и публикация
 
-- A request to inspect, review, diagnose, or change a local repository, branch, commit, or diff does not by itself authorize access to a remote code-hosting system. Reading local remote configuration is allowed. Remote reads, checks, and downloads, including `git fetch` and the network part of `git pull`, require authorization under the rules below.
-- A request to inspect a specific remote pull/merge request, review, pipeline, or repository authorizes the reads necessary for that task. Authorization is limited to the named system and task; permission for one code-hosting provider does not automatically extend to another.
-- An explicit request to perform a remote operation authorizes the remote reads and checks necessary to perform that operation within the specified task. It does not authorize additional remote mutations.
-- Pushing, publishing branches or tags, creating or editing pull/merge requests, posting comments or reviews, approving or requesting changes, remote merging, and triggering pipelines require an explicit request for the respective action in the current conversation.
-- A local commit never implies permission to push, publish, open a pull/merge request, or perform another remote action. Permission to prepare or open a pull/merge request does not imply permission to push.
-- An explicit authorization already given remains valid within the agreed task scope. Do not ask for redundant confirmation of the same operation unless a higher-priority instruction or the tool's approval mechanism requires it.
-- Prepare pull request and merge request descriptions strictly after all agreed work in the chat is complete. First provide the full description to the user in the chat for review; do not publish it or create/update a pull/merge request containing it unless the user explicitly confirms that description. If the user does not confirm, take no further action on the description: they may have ignored the draft or edited and published it themselves. Silence is not approval; do not send repeated approval reminders or overwrite a description the user has published without an explicit request. This requirement applies only to preparing and publishing descriptions. It must not delay or block explicitly requested branch publication, commit pushes, or updates to branches associated with an existing pull/merge request; perform those authorized operations without additional confirmation solely because description approval is pending or absent.
+- Запрос на изучение, ревью, диагностику или изменение локального репозитория, ветки, коммита или diff сам по себе не разрешает доступ к удалённой системе хостинга кода. Читать локальные настройки удалённых репозиториев разрешено. Чтение, проверки и загрузка данных из удалённой системы, включая `git fetch` и сетевую часть `git pull`, требуют разрешения по правилам ниже.
+- Запрос на изучение конкретного удалённого pull/merge request, ревью, пайплайна или репозитория разрешает чтение данных, необходимое для этой задачи. Разрешение ограничено указанной системой и задачей; разрешение для одного сервиса хостинга кода не распространяется автоматически на другой.
+- Явный запрос на выполнение удалённой операции разрешает чтение данных и проверки в удалённой системе, необходимые для выполнения этой операции в рамках указанной задачи. Он не разрешает дополнительные изменения в удалённой системе.
+- Отправка коммитов (`push`), публикация веток или тегов, создание или изменение pull/merge request, публикация комментариев или ревью, одобрение изменений или запрос на их доработку, слияние в удалённом репозитории и запуск пайплайнов требуют явного запроса на соответствующее действие в текущем разговоре.
+- Локальный коммит никогда не означает разрешения на push, публикацию, открытие pull/merge request или другое удалённое действие. Разрешение подготовить или открыть pull/merge request не означает разрешения на push.
+- Уже полученное явное разрешение остаётся действительным в согласованных рамках задачи. Не запрашивай повторное подтверждение той же операции, если этого не требует инструкция с более высоким приоритетом или механизм подтверждения инструмента.
+- Готовь описания pull request и merge request строго после завершения всей согласованной работы в чате. Сначала покажи пользователю полный текст описания в чате для проверки; не публикуй его и не создавай и не обновляй pull/merge request с этим описанием, пока пользователь явно не подтвердит именно этот текст. Если пользователь не подтвердил описание, не предпринимай с ним дальнейших действий: пользователь мог проигнорировать черновик либо самостоятельно отредактировать и опубликовать его. Молчание не считается согласием; не отправляй повторные напоминания о подтверждении и не перезаписывай опубликованное пользователем описание без явного запроса. Это требование относится только к подготовке и публикации описаний. Оно не должно задерживать или блокировать явно запрошенную публикацию веток, отправку коммитов или обновление веток, связанных с существующим pull/merge request; выполняй эти разрешённые операции без дополнительного подтверждения только из-за того, что описание ещё не подтверждено или подтверждение отсутствует.
 
-### Working, shared, and target branches
+### Рабочие, общие и целевые ветки
 
-- During an assigned implementation task, you may create working branches and local commits related to that task. A request for analysis, discussion, or a proposed change does not by itself authorize file changes or commits.
-- Do not use `main`, `master`, `develop`, or other shared or protected branches for implementation or ordinary commits. Work on a separate working branch. Identify other shared branches from the user's directions and repository instructions.
-- Do not move, rewrite, or delete shared branches without an explicit user request. Reading their history or using them as the base of a working branch is allowed.
-- The user personally creates and explicitly names the target branch for integrating your work. Do not create that target branch on their behalf or choose one by default.
-- Merge your work into the target branch only on an explicit user request. That authorization includes a necessary merge commit, but not further implementation directly on the target branch.
-- If the target branch has not been specified or does not exist, continue independent work on your working branch and defer the merge.
-- Preserve existing user changes, keep unrelated changes out of your commits, and do not rewrite other people's history without an explicit request.
+- При выполнении порученной задачи по реализации ты можешь создавать рабочие ветки и локальные коммиты, относящиеся к этой задаче. Запрос на анализ, обсуждение или предложение изменения сам по себе не разрешает изменять файлы или создавать коммиты.
+- Не используй `main`, `master`, `develop` и другие общие или защищённые ветки для реализации изменений или обычных коммитов. Работай в отдельной рабочей ветке. Определяй остальные общие ветки по указаниям пользователя и инструкциям репозитория.
+- Не перемещай указатели общих веток, не переписывай их историю и не удаляй такие ветки без явного запроса пользователя. Читать их историю и использовать их как основу для рабочей ветки разрешено.
+- Пользователь лично создаёт и явно называет целевую ветку для интеграции твоей работы. Не создавай эту целевую ветку от его имени и не выбирай её по умолчанию.
+- Выполняй слияние своей работы в целевую ветку только по явному запросу пользователя. Такое разрешение включает создание необходимого коммита слияния, но не дальнейшую реализацию изменений непосредственно в целевой ветке.
+- Если целевая ветка не указана или не существует, продолжай независимую работу в своей рабочей ветке и отложи слияние.
+- Сохраняй существующие изменения пользователя, не включай посторонние изменения в свои коммиты и не переписывай чужую историю без явного запроса.
 
-### Git worktrees
+### Рабочие деревья Git (worktree)
 
-- For parallel code-changing tasks in the same repository, use a separate branch and worktree for each task.
-- Create the worktree before the first change when isolation from parallel work or existing uncommitted changes is needed. Analysis and other read-only work do not require a worktree.
-- Before making changes, verify the actual branch and root of the current working copy; do not infer them solely from the task or project name.
+- Для параллельных задач, изменяющих код в одном репозитории, используй отдельную ветку и отдельное рабочее дерево для каждой задачи.
+- Создавай рабочее дерево до первого изменения, если нужна изоляция от параллельной работы или существующих незакоммиченных изменений. Анализ и другая работа только на чтение не требуют отдельного рабочего дерева.
+- Перед внесением изменений проверяй фактическую ветку и корень текущей рабочей копии; не определяй их только по названию задачи или проекта.
 
-## Skill-specific preferences
+## Минимальные требования к доказательности
 
-### Narrow tracing skills
+Применяй эти требования соразмерно задаче. Этот общий минимум сам по себе не требует вызова навыков трассировки или полного исследования для краткого фактического ответа.
 
-- Use narrow tracing skills when tracing the existing implementation across meaningful system boundaries is itself a primary requested deliverable. Ordinary implementation, local edits, status reports, and short factual questions do not by themselves require those skills.
+- Сохраняй исходный сценарий, значимые входные данные и ожидаемое поведение; отличай сообщённое пользователем от установленного в ходе работы.
+- Обосновывай причинные выводы относящимися к делу источниками и наблюдениями, учитывая значимые границы системы в объёме, необходимом для вывода.
+- Различай уровни поведения и уже созданное состояние: сообщение в UI и внешний вызов, например, могут иметь разные результаты; ошибка не означает, что запись ещё не была сохранена.
+- Разделяй подтверждённое, гипотезы и предложения. Не утверждай, что проверка или воспроизведение выполнены, если фактически их не выполнял.
+- Явно указывай существенные пробелы в доказательствах и ограничения выводов.
 
