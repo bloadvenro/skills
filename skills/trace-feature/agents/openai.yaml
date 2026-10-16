@@ -1,0 +1,4 @@
+interface:
+  display_name: "Trace Feature"
+  short_description: "Map how a feature works across the system"
+  default_prompt: "Use $trace-feature to explain how this feature works across the system."

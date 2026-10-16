@@ -1,0 +1,4 @@
+interface:
+  display_name: "Trace Data"
+  short_description: "Trace one value through system transformations"
+  default_prompt: "Use $trace-data to follow this value from its origin to its final destination."

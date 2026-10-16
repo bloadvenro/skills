@@ -1,0 +1,4 @@
+interface:
+  display_name: "Trace Dataflow"
+  short_description: "Map an interaction end to end through the system"
+  default_prompt: "Use $trace-dataflow to map this interaction through the system."
