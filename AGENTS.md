@@ -1,14 +1,13 @@
+## Authority in external systems
+
+- Access remote code repositories and hosting, issue trackers, CI/CD, and deployment systems only within explicit human authorization in this conversation for the task. Local-only investigation or changes do not grant remote access; reading local remote configuration is allowed.
+- A request to inspect a remote object or perform a remote operation authorizes the reads and checks necessary for that task in the corresponding system, including related objects needed to complete it. Do not ask for approval of each necessary tool call or extend this authority to unrelated tasks or systems.
+- Changes to remote state, publication, and starting pipelines or deployments require an explicit request for the respective action. Local commits and drafting text grant no such authority. A request to create or open a pull request or merge request does not itself authorize a push.
+- Existing authorization persists within the agreed scope. Do not request redundant confirmation unless higher-priority instructions or a tool approval mechanism require it.
+- If authority is missing or ambiguous, explain the required action and its purpose and ask before taking the dependent action. Continue independent work that is already allowed.
+- Publishing a PR/MR description, including when creating or updating the PR/MR, requires an explicit publication request and the user's confirmation of the full description text first shown in chat. Silence is not approval: take no further action on an unconfirmed draft and send no repeated reminders. Do not overwrite a description published by the user without an explicit request. Pending description approval must not block separately authorized pushes, branch publication, or branch updates.
+
 ## Порядок работы с Git
-
-### Удалённый доступ и публикация
-
-- Запрос на изучение, ревью, диагностику или изменение локального репозитория, ветки, коммита или diff сам по себе не разрешает доступ к удалённой системе хостинга кода. Читать локальные настройки удалённых репозиториев разрешено. Чтение, проверки и загрузка данных из удалённой системы, включая `git fetch` и сетевую часть `git pull`, требуют разрешения по правилам ниже.
-- Запрос на изучение конкретного удалённого pull/merge request, ревью, пайплайна или репозитория разрешает чтение данных, необходимое для этой задачи. Разрешение ограничено указанной системой и задачей; разрешение для одного сервиса хостинга кода не распространяется автоматически на другой.
-- Явный запрос на выполнение удалённой операции разрешает чтение данных и проверки в удалённой системе, необходимые для выполнения этой операции в рамках указанной задачи. Он не разрешает дополнительные изменения в удалённой системе.
-- Отправка коммитов (`push`), публикация веток или тегов, создание или изменение pull/merge request, публикация комментариев или ревью, одобрение изменений или запрос на их доработку, слияние в удалённом репозитории и запуск пайплайнов требуют явного запроса на соответствующее действие в текущем разговоре.
-- Локальный коммит никогда не означает разрешения на push, публикацию, открытие pull/merge request или другое удалённое действие. Разрешение подготовить или открыть pull/merge request не означает разрешения на push.
-- Уже полученное явное разрешение остаётся действительным в согласованных рамках задачи. Не запрашивай повторное подтверждение той же операции, если этого не требует инструкция с более высоким приоритетом или механизм подтверждения инструмента.
-- Готовь описания pull request и merge request строго после завершения всей согласованной работы в чате. Сначала покажи пользователю полный текст описания в чате для проверки; не публикуй его и не создавай и не обновляй pull/merge request с этим описанием, пока пользователь явно не подтвердит именно этот текст. Если пользователь не подтвердил описание, не предпринимай с ним дальнейших действий: пользователь мог проигнорировать черновик либо самостоятельно отредактировать и опубликовать его. Молчание не считается согласием; не отправляй повторные напоминания о подтверждении и не перезаписывай опубликованное пользователем описание без явного запроса. Это требование относится только к подготовке и публикации описаний. Оно не должно задерживать или блокировать явно запрошенную публикацию веток, отправку коммитов или обновление веток, связанных с существующим pull/merge request; выполняй эти разрешённые операции без дополнительного подтверждения только из-за того, что описание ещё не подтверждено или подтверждение отсутствует.
 
 ### Рабочие, общие и целевые ветки
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Draft PR/MR Description"
+  short_description: "Draft or revise PR and MR descriptions"
+  default_prompt: "Use $draft-pr-mr-description to draft a description of the completed changes for review."
+policy:
+  allow_implicit_invocation: true
