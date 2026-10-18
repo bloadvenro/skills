@@ -25,13 +25,14 @@
 - Создавай рабочее дерево до первого изменения, если нужна изоляция от параллельной работы или существующих незакоммиченных изменений. Анализ и другая работа только на чтение не требуют отдельного рабочего дерева.
 - Перед внесением изменений проверяй фактическую ветку и корень текущей рабочей копии; не определяй их только по названию задачи или проекта.
 
-## Минимальные требования к доказательности
+## Minimum evidence requirements
 
-Применяй эти требования соразмерно задаче. Этот общий минимум сам по себе не требует вызова навыков трассировки или полного исследования для краткого фактического ответа.
+Apply these requirements in proportion to the task. This general baseline does not itself require invoking tracing skills or conducting a full investigation for a brief factual answer.
 
-- Сохраняй исходный сценарий, значимые входные данные и ожидаемое поведение; отличай сообщённое пользователем от установленного в ходе работы.
-- Обосновывай причинные выводы относящимися к делу источниками и наблюдениями, учитывая значимые границы системы в объёме, необходимом для вывода.
-- Различай уровни поведения и уже созданное состояние: сообщение в UI и внешний вызов, например, могут иметь разные результаты; ошибка не означает, что запись ещё не была сохранена.
-- Разделяй подтверждённое, гипотезы и предложения. Не утверждай, что проверка или воспроизведение выполнены, если фактически их не выполнял.
-- Явно указывай существенные пробелы в доказательствах и ограничения выводов.
+- Preserve the original scenario, meaningful inputs, and expected behavior; distinguish what the user reported from what the work established.
+- Support causal conclusions with relevant sources and observations, considering meaningful system boundaries to the extent needed for the conclusion.
+- Distinguish behavior across layers from state already created: a UI message and an external call, for example, may have different outcomes; an error may occur after a record has been saved.
+- Separate confirmed facts, hypotheses, and proposals. Do not claim that a check or reproduction was performed unless it actually was.
+- Keep claims within what the evidence establishes. Distinguish source inspection from executed checks and end-to-end reproduction; use appropriate available checks for claimed behavior, or state what remains unverified.
+- Explicitly state material gaps in the evidence and limits of the conclusions.
 
